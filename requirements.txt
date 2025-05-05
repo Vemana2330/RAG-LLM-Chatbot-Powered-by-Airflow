@@ -1,0 +1,7 @@
+selenium
+webdriver-manager
+mistralai
+asyncio
+pinecone
+spacy
+scikit-learn
