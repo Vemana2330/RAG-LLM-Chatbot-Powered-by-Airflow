@@ -1,0 +1,14 @@
+pydantic
+fastapi
+python-dotenv
+uvicorn
+tiktoken
+boto3
+openai
+mistralai
+asyncio
+spacy==3.7.2
+pinecone
+scikit-learn
+chromadb
+Pillow
