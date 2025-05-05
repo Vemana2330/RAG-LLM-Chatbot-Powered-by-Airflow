@@ -1,0 +1,7 @@
+[theme]
+base="light"
+primaryColor="#FF6B6B" 
+backgroundColor="#FDF1F1"  # ✅ Soft Pinkish White
+secondaryBackgroundColor="#FFDDE1"  # ✅ Light Pastel Pink
+textColor="#333333"
+font="sans serif"
