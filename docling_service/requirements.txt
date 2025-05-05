@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+boto3
+python-dotenv
+docling
+docling-core
+python-multipart
