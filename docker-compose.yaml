@@ -1,0 +1,61 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: fastapi_service
+    ports:
+      - "8000:8000"
+    networks:
+      - airflow_network
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./pdf_processing:/app/pdf_processing
+      - ./chunking:/app/chunking         
+      - ./chunks:/app/chunks
+      - ./embedding:/app/embedding
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      docling_service:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: streamlit_app
+    ports:
+      - "8501:8501"
+    networks:
+      - airflow_network
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  docling_service:
+    build:
+      context: ./docling_service
+    container_name: docling_service
+    ports:
+      - "8001:8001"
+    networks:
+      - airflow_network
+    env_file:
+      - ./docling_service/.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/docs"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./docling_service:/app
+
+
+networks:
+  airflow_network:
+    external: true
